@@ -1,0 +1,683 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>三重楓紅漫遊</title>
+<style>
+
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;600;700&display=swap');
+
+  :root {
+    --bg: #fbf5ec;
+    --surface: #ffffff;
+    --surface-2: #fff3e0;
+    --ink: #2c231b;
+    --ink-soft: #6f5d4c;
+    --ink-faint: #a3907c;
+    --accent: #b6442a;
+    --accent-soft: #d97a52;
+    --pine: #6f7f4a;
+    --pine-soft: #eef0e2;
+    --gold: #c2953d;
+    --line: #e7d9c2;
+    --shadow: 0 1px 2px rgba(60, 40, 20, 0.06), 0 8px 24px rgba(60, 40, 20, 0.06);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1b1611;
+      --surface: #241e17;
+      --surface-2: #2d2319;
+      --ink: #f1e6d5;
+      --ink-soft: #c9b79c;
+      --ink-faint: #8d7c65;
+      --accent: #e8845f;
+      --accent-soft: #d97a52;
+      --pine: #a3b884;
+      --pine-soft: #2a2f20;
+      --gold: #dcac54;
+      --line: #3a2f22;
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 28px rgba(0, 0, 0, 0.35);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #1b1611;
+    --surface: #241e17;
+    --surface-2: #2d2319;
+    --ink: #f1e6d5;
+    --ink-soft: #c9b79c;
+    --ink-faint: #8d7c65;
+    --accent: #e8845f;
+    --accent-soft: #d97a52;
+    --pine: #a3b884;
+    --pine-soft: #2a2f20;
+    --gold: #dcac54;
+    --line: #3a2f22;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 28px rgba(0, 0, 0, 0.35);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    padding-inline: 20px;
+    padding-block: 28px 64px;
+    font-size: 16px;
+    line-height: 1.75;
+  }
+
+  h1, h2, h3 { font-family: "Noto Serif TC", "Noto Sans TC", serif; text-wrap: balance; margin: 0; }
+
+  .wrap { max-width: 760px; margin: 0 auto; }
+
+  /* ---------- Header ---------- */
+  header.hero {
+    padding-block: 8px 28px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 28px;
+  }
+  .eyebrow {
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  header.hero h1 {
+    font-size: clamp(30px, 6vw, 42px);
+    font-weight: 900;
+    color: var(--ink);
+    line-height: 1.25;
+  }
+  header.hero h1 em {
+    font-style: normal;
+    color: var(--accent);
+  }
+  .subtitle {
+    margin-top: 10px;
+    color: var(--ink-soft);
+    font-size: 15.5px;
+    max-width: 56ch;
+  }
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 18px;
+  }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: var(--surface-2);
+    color: var(--ink-soft);
+    border: 1px solid var(--line);
+  }
+
+  /* ---------- Route strip ---------- */
+  .route-strip {
+    margin-top: 24px;
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding-bottom: 6px;
+    scrollbar-width: thin;
+  }
+  .route-node {
+    flex: 0 0 auto;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    padding: 7px 11px;
+    border-radius: 10px;
+    white-space: nowrap;
+    text-decoration: none;
+    box-shadow: var(--shadow);
+  }
+  .route-node .d { color: var(--accent); margin-right: 4px; }
+  .route-arrow { align-self: center; color: var(--ink-faint); font-size: 13px; }
+
+  /* ---------- Section: overview table ---------- */
+  section { margin-bottom: 40px; }
+  .section-title {
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+  .overview-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  @media (max-width: 480px) { .overview-grid { grid-template-columns: 1fr; } }
+  .overview-item {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: var(--shadow);
+  }
+  .overview-item .label { font-size: 12.5px; color: var(--ink-faint); font-weight: 600; margin-bottom: 4px; }
+  .overview-item .value { font-size: 15px; font-weight: 600; color: var(--ink); }
+
+  /* ---------- Day card ---------- */
+  .day {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 24px 24px 22px;
+    margin-bottom: 22px;
+    box-shadow: var(--shadow);
+    scroll-margin-top: 16px;
+  }
+  .day-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 4px;
+    flex-wrap: wrap;
+  }
+  .day-num {
+    font-family: "Noto Serif TC", serif;
+    font-weight: 900;
+    font-size: 15px;
+    color: #fff;
+    background: var(--accent);
+    padding: 3px 11px;
+    border-radius: 8px;
+    letter-spacing: 0.03em;
+  }
+  .day-date { font-size: 13.5px; color: var(--ink-faint); font-weight: 600; }
+  .day-title {
+    font-size: 21px;
+    font-weight: 700;
+    margin-top: 8px;
+    color: var(--ink);
+  }
+  .day-summary {
+    margin-top: 4px;
+    color: var(--ink-soft);
+    font-size: 14.5px;
+  }
+
+  .timeline {
+    margin-top: 18px;
+    border-top: 1px dashed var(--line);
+    padding-top: 4px;
+  }
+  .stop {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 14px;
+    padding-block: 13px;
+    border-bottom: 1px dashed var(--line);
+  }
+  .stop:last-child { border-bottom: none; }
+  .stop .time {
+    font-variant-numeric: tabular-nums;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--accent);
+    padding-top: 2px;
+  }
+  .stop .place {
+    font-weight: 700;
+    font-size: 15.5px;
+    color: var(--ink);
+  }
+  .stop .place .tag {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--pine);
+    background: var(--pine-soft);
+    padding: 2px 7px;
+    border-radius: 6px;
+    margin-left: 7px;
+    vertical-align: middle;
+  }
+  .stop .desc {
+    margin-top: 4px;
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.7;
+  }
+  .drive {
+    grid-column: 1 / -1;
+    font-size: 12.5px;
+    color: var(--ink-faint);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding-block: 2px 0;
+  }
+  .drive::before { content: "↳"; color: var(--gold); }
+
+  .stay-box {
+    margin-top: 16px;
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 16px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .stay-box .icon {
+    font-size: 18px;
+    line-height: 1;
+    padding-top: 2px;
+  }
+  .stay-box .stay-name { font-weight: 700; font-size: 14.5px; color: var(--ink); }
+  .stay-box .stay-note { font-size: 13.5px; color: var(--ink-soft); margin-top: 3px; }
+
+  /* ---------- Notes ---------- */
+  .notes-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .note-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    border-radius: 10px;
+    padding: 14px 16px;
+    box-shadow: var(--shadow);
+  }
+  .note-card h3 { font-size: 14.5px; font-weight: 700; margin-bottom: 6px; color: var(--ink); }
+  .note-card p { margin: 0; font-size: 14px; color: var(--ink-soft); }
+  .note-card.warn { border-left-color: var(--pine); }
+
+  footer {
+    margin-top: 40px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+    font-size: 12.5px;
+    color: var(--ink-faint);
+  }
+
+  a { color: inherit; }
+
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+
+  <header class="hero">
+    <div class="eyebrow">7 DAYS · 6 NIGHTS · MIE, JAPAN</div>
+    <h1>三重楓紅漫遊<br><em>兩對情侶 × 兩位長輩</em>的自駕之旅</h1>
+    <p class="subtitle">2026 年底出發，從名古屋中部機場租車出發，繞行三重縣一圈——賞楓、泡湯、參拜伊勢神宮、吃松阪牛，步調放慢，晚上早點回旅館休息。全程避開有海女表演秀的海鮮燒烤餐廳。</p>
+    <div class="chips">
+      <span class="chip">🚗 全程自駕</span>
+      <span class="chip">🍁 賞楓＋燈海</span>
+      <span class="chip">♨️ 溫泉旅館為主</span>
+      <span class="chip">👴👵 長輩友善步調</span>
+    </div>
+    <div class="route-strip">
+      <a class="route-node" href="#d1"><span class="d">D1</span>中部機場→長島</a>
+      <span class="route-arrow">→</span>
+      <a class="route-node" href="#d2"><span class="d">D2</span>湯の山→榊原溫泉</a>
+      <span class="route-arrow">→</span>
+      <a class="route-node" href="#d3"><span class="d">D3</span>伊賀→松阪→伊勢</a>
+      <span class="route-arrow">→</span>
+      <a class="route-node" href="#d4"><span class="d">D4</span>二見→伊勢神宮→鳥羽</a>
+      <span class="route-arrow">→</span>
+      <a class="route-node" href="#d5"><span class="d">D5</span>鳥羽→賢島</a>
+      <span class="route-arrow">→</span>
+      <a class="route-node" href="#d6"><span class="d">D6</span>鳥羽→桑名</a>
+      <span class="route-arrow">→</span>
+      <a class="route-node" href="#d7"><span class="d">D7</span>桑名→機場</a>
+    </div>
+  </header>
+
+  <section>
+    <div class="section-title">行程總覽</div>
+    <div class="overview-grid">
+      <div class="overview-item"><div class="label">出發時間</div><div class="value">2026 年 11 月下旬〜12 月上旬（賞楓＋なばなの里燈海檔期）</div></div>
+      <div class="overview-item"><div class="label">交通方式</div><div class="value">中部國際機場租車，全程自駕</div></div>
+      <div class="overview-item"><div class="label">住宿重點</div><div class="value">鳥羽連住 2 晚，其餘每晚移動 1 次，減少長輩搬行李次數</div></div>
+      <div class="overview-item"><div class="label">用餐原則</div><div class="value">松阪牛、伊勢烏龍麵、旅館會席料理；不安排海女秀海鮮燒烤店</div></div>
+    </div>
+  </section>
+
+  <!-- DAY 1 -->
+  <section class="day" id="d1">
+    <div class="day-head">
+      <span class="day-num">DAY 1</span>
+      <span class="day-date">抵達日</span>
+    </div>
+    <div class="day-title">中部機場入境，直奔楓紅燈海のなばなの里</div>
+    <p class="day-summary">第一天步調放輕鬆，領車後直接南下桑名／長島，傍晚在なばなの里同時賞楓與看世界級燈光展，晚上就近住長島溫泉。</p>
+    <div class="timeline">
+      <div class="stop">
+        <div class="time">下午</div>
+        <div>
+          <div class="place">中部國際機場（セントレア）抵達 <span class="tag">領車</span></div>
+          <div class="desc">出關後在機場內租車櫃台取車。建議選擇油電或休旅車型，後車廂需放得下 4 人份行李，並事先申請好台灣駕照的日文譯本（JAF 譯本，非國際駕照）。</div>
+        </div>
+        <div class="drive">車程約 40 分鐘（經伊勢灣岸道）</div>
+      </div>
+      <div class="stop">
+        <div class="time">17:00起</div>
+        <div>
+          <div class="place">なばなの里 <span class="tag">賞楓＋燈海</span></div>
+          <div class="desc">2026-2027 年度冬季燈海約自 10 月中開展，12 月下旬會進入特別期間（需事先購票）。園區內同時有紅葉區，建議天色未暗前先賞楓、天黑後看燈海，行走路線平緩，輪椅、長輩皆方便。園內有暖爐座位區可中途休息。</div>
+        </div>
+      </div>
+    </div>
+    <div class="stay-box">
+      <div class="icon">🏨</div>
+      <div>
+        <div class="stay-name">住宿：長島溫泉區（如花水木飯店、湯あみの島周邊）</div>
+        <div class="stay-note">選擇與なばなの里同一園區或接駁車可達的溫泉飯店，省去夜間開車，且多有大浴場與無障礙客房。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DAY 2 -->
+  <section class="day" id="d2">
+    <div class="day-head">
+      <span class="day-num">DAY 2</span>
+      <span class="day-date">第二天</span>
+    </div>
+    <div class="day-title">御在所岳纜車賞楓，夜宿日本三名湯之一</div>
+    <p class="day-summary">上午搭纜車輕鬆登高賞楓，中午在湯の山溫泉街散步，下午移動到清少納言《枕草子》也記載過的榊原溫泉，泡個安靜的古湯。</p>
+    <div class="timeline">
+      <div class="stop">
+        <div class="time">09:30</div>
+        <div>
+          <div class="place">出發前往湯の山溫泉</div>
+        </div>
+        <div class="drive">車程約 45 分鐘</div>
+      </div>
+      <div class="stop">
+        <div class="time">10:30</div>
+        <div>
+          <div class="place">御在所岳纜車 <span class="tag">賞楓</span></div>
+          <div class="desc">御在所岳因海拔落差大，11 月中旬到 12 月上旬期間，山頂、山腰、山腳會分三段陸續變色，纜車全程約 12 分鐘，坐著就能飽覽楓紅，很適合長輩。山頂若天氣好可遠眺伊勢灣。</div>
+        </div>
+      </div>
+      <div class="stop">
+        <div class="time">12:30</div>
+        <div>
+          <div class="place">湯の山溫泉街午餐</div>
+          <div class="desc">溫泉街上有多家蕎麥麵、鄉土料理小店，步調悠閒，用完餐可散步消化。</div>
+        </div>
+        <div class="drive">車程約 1 小時 10 分（經伊勢自動車道）</div>
+      </div>
+      <div class="stop">
+        <div class="time">14:30</div>
+        <div>
+          <div class="place">榊原溫泉散策 <span class="tag">溫泉</span></div>
+          <div class="desc">榊原溫泉自古被列為「日本三名泉」之一，泉質溫和不刺激皮膚，溫泉街小巧安靜，沒有大型觀光人潮，很適合兩位長輩放慢腳步、泡湯休息一整晚。</div>
+        </div>
+      </div>
+    </div>
+    <div class="stay-box">
+      <div class="icon">♨️</div>
+      <div>
+        <div class="stay-name">住宿：榊原溫泉 旅館（附露天風呂客室、含部屋食晚餐為佳）</div>
+        <div class="stay-note">選一泊二食、晚餐直接送到房間的旅館，長輩不用再外出，晚上可安靜早點休息。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DAY 3 -->
+  <section class="day" id="d3">
+    <div class="day-head">
+      <span class="day-num">DAY 3</span>
+      <span class="day-date">第三天</span>
+    </div>
+    <div class="day-title">忍者故鄉伊賀上野 → 松阪牛 → 伊勢神宮外宮</div>
+    <p class="day-summary">上午逛小巧的伊賀上野城下町，中午吃正宗松阪牛，下午前往伊勢神宮先參拜外宮，把最重要的內宮留到明天上午精神最好的時候。</p>
+    <div class="timeline">
+      <div class="stop">
+        <div class="time">09:00</div>
+        <div>
+          <div class="place">出發前往伊賀上野</div>
+        </div>
+        <div class="drive">車程約 50 分鐘</div>
+      </div>
+      <div class="stop">
+        <div class="time">10:00</div>
+        <div>
+          <div class="place">伊賀上野城・忍者博物館 <span class="tag">文化</span></div>
+          <div class="desc">日本三大高石垣之一的上野城天守閣不大，登城不吃力；忍者博物館的忍術表演約 15-20 分鐘，動靜皆宜，適合兩對情侶拍照、長輩坐著看表演。城下町範圍不大，步行即可逛完。</div>
+        </div>
+        <div class="drive">車程約 1 小時</div>
+      </div>
+      <div class="stop">
+        <div class="time">12:30</div>
+        <div>
+          <div class="place">松阪牛午餐 <span class="tag">美食</span></div>
+          <div class="desc">建議選涮涮鍋或壽喜燒形式（如和田金、牛銀本店等百年老舖），肉質軟嫩好入口，比燒肉更適合長輩牙口。可事先預約避免現場久候。</div>
+        </div>
+        <div class="drive">車程約 30 分鐘</div>
+      </div>
+      <div class="stop">
+        <div class="time">15:00</div>
+        <div>
+          <div class="place">伊勢神宮外宮（豐受大神宮） <span class="tag">參拜</span></div>
+          <div class="desc">外宮腹地平坦、參道有樹蔭，是三重最重要的信仰中心之一，傍晚人潮較少，適合安靜參拜。依照傳統習慣，建議先參拜外宮，隔天再參拜內宮。</div>
+        </div>
+        <div class="drive">車程約 15 分鐘</div>
+      </div>
+    </div>
+    <div class="stay-box">
+      <div class="icon">🏨</div>
+      <div>
+        <div class="stay-name">住宿：伊勢市或二見浦周邊飯店</div>
+        <div class="stay-note">選在伊勢市區或二見浦，方便隔天一早直接接續內宮與夫婦岩行程。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DAY 4 -->
+  <section class="day" id="d4">
+    <div class="day-head">
+      <span class="day-num">DAY 4</span>
+      <span class="day-date">第四天</span>
+    </div>
+    <div class="day-title">夫婦岩日出、伊勢神宮內宮、鳥羽溫泉入住（連住 2 晚）</div>
+    <p class="day-summary">今天景點集中、車程都短，晚上入住鳥羽溫泉旅館，接下來兩晚都在同一間飯店，不用再收拾行李搬家。</p>
+    <div class="timeline">
+      <div class="stop">
+        <div class="time">08:00</div>
+        <div>
+          <div class="place">二見興玉神社・夫婦岩 <span class="tag">拍照</span></div>
+          <div class="desc">象徵夫妻圓滿的知名景點，很適合兩對情侶合照，海岸步道平坦好走，早上人潮較少、光線也最美。</div>
+        </div>
+        <div class="drive">車程約 20 分鐘</div>
+      </div>
+      <div class="stop">
+        <div class="time">09:30</div>
+        <div>
+          <div class="place">伊勢神宮內宮（皇大神宮） <span class="tag">參拜</span></div>
+          <div class="desc">日本神社之首，正宮參道有一段碎石路及台階，建議放慢腳步、備好好走的鞋，宇治橋、五十鈴川御手洗場都很好拍。</div>
+        </div>
+      </div>
+      <div class="stop">
+        <div class="time">11:30</div>
+        <div>
+          <div class="place">おかげ橫丁・おはらい町午餐散策 <span class="tag">美食</span></div>
+          <div class="desc">江戶風老街，赤福餅、伊勢烏龍麵都在這條街上，店家密集、走走停停不會太累，很適合安排成中午的休息點。</div>
+        </div>
+        <div class="drive">車程約 30 分鐘</div>
+      </div>
+      <div class="stop">
+        <div class="time">15:00</div>
+        <div>
+          <div class="place">鳥羽市區散步 <span class="tag">自由活動</span></div>
+          <div class="desc">下午行程放鬆一點，可提早進飯店泡湯休息，或在鳥羽港周邊散步看海，把體力留給明天的水族館與遊船。</div>
+        </div>
+      </div>
+    </div>
+    <div class="stay-box">
+      <div class="icon">♨️</div>
+      <div>
+        <div class="stay-name">住宿：鳥羽溫泉旅館，連住 2 晚（如はいふう、志摩別邸等附露天風呂客室旅館）</div>
+        <div class="stay-note">晚餐建議選旅館內附餐的會席料理，特別提醒：鳥羽・相差一帶有些海鮮燒烤店會附設海女表演秀，這類店家已刻意排除在行程外。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DAY 5 -->
+  <section class="day" id="d5">
+    <div class="day-head">
+      <span class="day-num">DAY 5</span>
+      <span class="day-date">第五天</span>
+    </div>
+    <div class="day-title">鳥羽水族館、真珠島、伊勢志摩天際線、賢島遊船</div>
+    <p class="day-summary">今晚不用換飯店，行李留在房間，輕裝出門玩一整天，傍晚回同一間旅館泡湯。</p>
+    <div class="timeline">
+      <div class="stop">
+        <div class="time">09:00</div>
+        <div>
+          <div class="place">鳥羽水族館 <span class="tag">室內</span></div>
+          <div class="desc">日本少數有儒艮的水族館，動線平緩、室內不受天氣影響，年紀大也走得舒服，海獅表演可坐著看。</div>
+        </div>
+      </div>
+      <div class="stop">
+        <div class="time">11:30</div>
+        <div>
+          <div class="place">御木本真珠島 <span class="tag">選擇性</span></div>
+          <div class="desc">珍珠養殖發源地，有海女實演（示範採貝，非表演秀＋燒烤形式），對真珠有興趣可安排，否則可直接跳過往下一站。</div>
+        </div>
+        <div class="drive">車程約 40 分鐘</div>
+      </div>
+      <div class="stop">
+        <div class="time">13:30</div>
+        <div>
+          <div class="place">伊勢志摩スカイライン展望台 <span class="tag">絕景</span></div>
+          <div class="desc">開車就能到的高處展望台，可同時眺望太平洋與五十鈴川流域，秋天山景也很漂亮，不需要爬山。</div>
+        </div>
+        <div class="drive">車程約 40 分鐘</div>
+      </div>
+      <div class="stop">
+        <div class="time">15:00</div>
+        <div>
+          <div class="place">賢島・英虞灣遊覽船 <span class="tag">遊船</span></div>
+          <div class="desc">搭乘約 50 分鐘的觀光遊覽船繞英虞灣一圈，欣賞珍珠筏與多島美景，全程坐著、無需走動，對長輩非常友善。</div>
+        </div>
+        <div class="drive">車程約 40 分鐘返回鳥羽</div>
+      </div>
+    </div>
+    <div class="stay-box">
+      <div class="icon">♨️</div>
+      <div>
+        <div class="stay-name">住宿：同前一晚的鳥羽溫泉旅館</div>
+        <div class="stay-note">回到熟悉的房間，晚餐可安排伊勢海老或鮑魚等在地食材的會席料理。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DAY 6 -->
+  <section class="day" id="d6">
+    <div class="day-head">
+      <span class="day-num">DAY 6</span>
+      <span class="day-date">第六天</span>
+    </div>
+    <div class="day-title">溫泉悠閒晨，北返桑名採買伴手禮</div>
+    <p class="day-summary">最後一個完整日，早上不趕行程，中午再出發北返，途中安排大型 Outlet 讓大家買齊伴手禮，晚上住機場附近方便隔天出境。</p>
+    <div class="timeline">
+      <div class="stop">
+        <div class="time">上午</div>
+        <div>
+          <div class="place">旅館悠閒早晨 <span class="tag">自由活動</span></div>
+          <div class="desc">早上不安排行程，泡湯、散步、睡到自然醒，退房前留時間讓長輩慢慢收拾行李。</div>
+        </div>
+        <div class="drive">車程約 1 小時 40 分（經伊勢自動車道／東名阪道）</div>
+      </div>
+      <div class="stop">
+        <div class="time">14:00</div>
+        <div>
+          <div class="place">Nagashima Jazz Dream 三井Outlet <span class="tag">購物</span></div>
+          <div class="desc">日本大型 Outlet 之一，品牌齊全、室內外皆有，可推嬰兒車 / 輪椅，方便一次買齊回國要送的伴手禮，也有美食街可簡單解決晚餐。</div>
+        </div>
+        <div class="drive">車程約 30 分鐘</div>
+      </div>
+    </div>
+    <div class="stay-box">
+      <div class="icon">🏨</div>
+      <div>
+        <div class="stay-name">住宿：桑名／四日市市區飯店</div>
+        <div class="stay-note">選在機場周邊，隔天不用早起長途開車趕飛機，也方便加滿油、還車。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DAY 7 -->
+  <section class="day" id="d7">
+    <div class="day-head">
+      <span class="day-num">DAY 7</span>
+      <span class="day-date">返程日</span>
+    </div>
+    <div class="day-title">加油還車，賦歸</div>
+    <p class="day-summary">最後一天保留充裕時間應對還車與機場流程，不安排景點。</p>
+    <div class="timeline">
+      <div class="stop">
+        <div class="time">上午</div>
+        <div>
+          <div class="place">加滿油、前往機場還車 <span class="tag">交通</span></div>
+        </div>
+        <div class="drive">車程約 35-40 分鐘</div>
+      </div>
+      <div class="stop">
+        <div class="time">之後</div>
+        <div>
+          <div class="place">中部國際機場 出境賦歸</div>
+          <div class="desc">建議還車與登機時間至少預留 2.5-3 小時緩衝，含還車手續、機場接駁、報到與安檢。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">行前小提醒</div>
+    <div class="notes-grid">
+      <div class="note-card">
+        <h3>駕照要辦「日文譯本」不是國際駕照</h3>
+        <p>台灣駕照在日本自駕須向監理站申請 JAF 認證的日文譯本，並隨身攜帶台灣駕照正本；純國際駕照（IDP）在日本不適用。</p>
+      </div>
+      <div class="note-card">
+        <h3>なばなの里燈海建議先訂票</h3>
+        <p>特別是 12 月下旬聖誕檔期人潮較多，官網或超商預售票可省去現場排隊時間，出發前務必查最新的點燈時間與開放時段。</p>
+      </div>
+      <div class="note-card">
+        <h3>11 月底〜12 月初早晚溫差大</h3>
+        <p>日間約 12-17°C，清晨與山區（御在所岳、伊勢志摩天際線）明顯偏冷，建議洋蔥式穿法，長輩多帶一件保暖外套與手套。</p>
+      </div>
+      <div class="note-card warn">
+        <h3>已刻意避開的行程</h3>
+        <p>鳥羽、相差一帶部分海鮮燒烤餐廳會搭配海女表演秀作為賣點，本行程未安排此類店家；御木本真珠島的海女示範屬採貝演示，性質不同，可依喜好自行決定是否參觀。</p>
+      </div>
+      <div class="note-card">
+        <h3>彈性備案</h3>
+        <p>若體力還有餘裕，可將第三天的伊賀上野替換或加碼安排赤目四十八滝（建議只走前段米福・柿窪滝，約來回 1 小時，11 月上旬〜下旬是最佳賞楓期）。</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    行程時間與車程為預估參考，實際仍請依當地路況、店家與設施最新公告（營業時間、預約制度、紅葉／燈海期間）為準，建議出發前 1-2 週再次確認各景點與餐廳的最新資訊。
+  </footer>
+
+</div>
+
+</body>
+</html>
